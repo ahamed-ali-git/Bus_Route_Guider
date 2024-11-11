@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusRouteGuider - Logout</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .card {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-gray-100 flex items-center justify-center">
+    <div class="w-full max-w-md p-6 bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl animate-fade-in">
+        <h1 class="text-2xl font-bold mb-4 flex items-center justify-center">
+            <i class="fas fa-bus h-8 w-8 text-blue-400 mr-2"></i>
+            BusRouteGuider
+        </h1>
+        
+        <div class="text-center mb-6">
+            <i class="fas fa-sign-out-alt text-4xl text-blue-400 mb-4"></i>
+            <h2 class="text-xl font-semibold mb-2">Confirm Logout</h2>
+            <p class="text-gray-400">Are you sure you want to log out of your account?</p>
+        </div>
+
+        <div class="space-y-4">
+            <button id="confirm-logout" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg w-full flex items-center justify-center space-x-2 transition-colors">
+                <span>Yes, Log Out</span>
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+            
+            <button id="cancel-logout" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2 rounded-lg w-full flex items-center justify-center space-x-2 transition-colors">
+                <span>Cancel</span>
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="mt-6 text-center text-sm text-gray-400">
+            <p>You'll need to sign in again to access your account</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('confirm-logout').addEventListener('click', async function() {
+            try {
+                const response = await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    window.location.href = '/login';
+                } else {
+                    throw new Error('Logout failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to logout. Please try again.');
+            }
+        });
+
+        document.getElementById('cancel-logout').addEventListener('click', function() {
+            window.location.href = '/home';
+        });
+
+        // Add fade-in animation on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.animate-fade-in').forEach(el => {
+                el.classList.remove('opacity-0');
+            });
+        });
+    </script>
+</body>
+</html>

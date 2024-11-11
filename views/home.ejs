@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusRouteGuider</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://maps.gomaps.pro/maps/api/js?key=AlzaSy4kJPKU4WFIhqv23_WlNDWOCdfGIS_5gaU&callback=initMap" async defer></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .card {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+
+        .info-window {
+            background-color: #3498db; 
+            padding: 5px; 
+            border: 1px solid #2980b9; 
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            color: #fff; 
+            font-size: 12px; 
+            text-align: center;
+        }
+
+        .info-window strong {
+            font-size: 12px; 
+        }
+        .star-rating:hover .star {
+    color: #808080;
+}
+.star-rating .star:hover ~ .star,
+.star-rating .star:hover {
+    color: #fbbf24 !important;
+}
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-gray-100">
+    <!-- Header -->
+    <header class="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-bus h-8 w-8 text-blue-400"></i>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                    BusRouteGuider
+                </h1>
+            </div>
+            <button class="background-color: rgb(30 64 175);">
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                <a href="/logout">logout</a>
+              </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+        <div class="grid lg:grid-cols-2 gap-6">
+            <!-- Left Column -->
+            <div class="space-y-6">
+                <!-- Driver Card -->
+                <div class="card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-users h-5 w-5 mr-2 text-blue-400"></i>
+                        Driver Details
+                    </h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-gray-400">Name:</span>
+                                <span>John Doe</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-phone h-4 w-4 text-blue-400"></i>
+                                <span>+1234567890</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-envelope h-4 w-4 text-blue-400"></i>
+                                <span>info@gmit.ac.in</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">
+                                    On-duty
+                                </span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="far fa-star text-gray-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stop Details -->
+                <div class="card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold flex items-center">
+                            <i class="fas fa-map-marker-alt h-5 w-5 mr-2 text-blue-400"></i>
+                            Stop Details
+                        </h2>
+                        <h2 class="text-xl font-semibold flex items-center">
+                            <i class="fas fa-clock h-5 w-5 mr-2 text-blue-400"></i>
+                            Timings
+                        </h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-700/50 transition-colors">
+                            <span>Hondada Circle</span>
+                            <span class="text-blue-400">7.55/8.55AM</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-700/50 transition-colors">
+                            <span>Sibara Circle</span>
+                            <span class="text-blue-400">8.00/9.00AM</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-700/50 transition-colors">
+                            <span>Shivali Talkies</span>
+                            <span class="text-blue-400">8.03/9.03AM</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-700/50 transition-colors">
+                            <span>Pooja Hotel</span>
+                            <span class="text-blue-400">8.10/9.10AM</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-700/50 transition-colors">
+                            <span>Sub Registrar Office</span>
+                            <span class="text-blue-400">8.15/9.15AM</span>
+                        </div>
+                        <div  class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-700/50 transition-colors">
+                            <span >GMIT (Arrival)</span>
+                            <span class="text-blue-400">8.20/9.20AM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bus Status -->
+                <div class="card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-clock h-5 w-5 mr-2 text-blue-400"></i>
+                        Bus Status
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Status:</span>
+                            <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full">
+                                On Schedule
+                            </span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">Capacity:</span>
+                                <span>25/40 Passengers</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div class="bg-blue-400 h-2 rounded-full w-[62.5%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Map Section -->
+            <div class="card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                <div id="map" class="h-[600px] rounded-lg">
+                    <script>
+                        function initMap() {
+                            // Initialize the map
+                            const map = new google.maps.Map(document.getElementById("map"), {
+                                zoom: 13,
+                                center: { lat: 14.470586, lng: 75.914154 }, // Center to your city
+                            });
+                
+                            // Example bus stops with names
+                            const busStops = [
+                                { lat: 14.4727427, lng: 75.9157954, name: "Hondada Circle" },
+                                { lat: 14.4756708, lng: 75.9121, name: "Sibara Circle" },
+                                { lat: 14.47338, lng: 75.91123, name: "Shivali Talkies" },
+                                { lat: 14.4698678, lng: 75.9060043, name: "Pooja Hotel" },
+                                { lat: 14.4716638, lng: 75.8987501, name: "Sub Registrar Office" },
+                                { lat: 14.4755979, lng: 75.8840404, name: "GMIT (Arrival)" }
+                            ];
+                
+                            function getLocation() {
+                                if (navigator.geolocation) {
+                                  navigator.geolocation.getCurrentPosition(showPosition);
+                                } else { 
+                                  x.innerHTML = "Geolocation is not supported by this browser.";
+                                }
+                              }
+                              
+                              function showPosition(position) {
+                                x.innerHTML = "Latitude:14.4727427 " + position.coords.latitude + 
+                                "<br>Longitude: 75.9157954" + position.coords.longitude;
+                              }
+                
+                            // Add markers and compact info windows for each bus stop
+                            busStops.forEach(stop => {
+                                const marker = new google.maps.Marker({
+                                    position: { lat: stop.lat, lng: stop.lng },
+                                    map: map,
+                                    title: stop.name,
+                                });
+                
+                                // Create compact info window for each marker
+                                const infoWindow = new google.maps.InfoWindow({
+                                    content: `
+                                        <div class="info-window">
+                                            <strong>${stop.name}</strong>
+                                        </div>`
+                                });
+                
+                                // Add event listener to open the info window on marker click
+                                marker.addListener("click", () => {
+                                    infoWindow.open(map, marker);
+                                });
+                            });
+                
+                            // Draw path for the bus
+                            const busPath = new google.maps.Polyline({
+                                path: busStops.map(stop => ({ lat: stop.lat, lng: stop.lng })),
+                                geodesic: true,
+                                strokeColor: "#FF0000",
+                                strokeOpacity: 2.0,
+                                strokeWeight: 5,
+                            });
+                            busPath.setMap(map);
+                        }
+                    </script>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-semibold flex items-center">
+                            <i class="fas fa-comments h-5 w-5 mr-2 text-blue-400"></i>
+                            Quick Feedback
+                        </h2>
+
+                        <form
+                           action="https://formspree.io/f/mvgokwrv"
+                           method="POST"
+                        >
+                        <!-- Star Rating -->
+                        <div class="star-rating flex space-x-1">
+                            <i class="star fas fa-star text-xl cursor-pointer hover:text-yellow-400 transition-colors"></i>
+                            <i class="star fas fa-star text-xl cursor-pointer hover:text-yellow-400 transition-colors"></i>
+                            <i class="star fas fa-star text-xl cursor-pointer hover:text-yellow-400 transition-colors"></i>
+                            <i class="star fas fa-star text-xl cursor-pointer hover:text-yellow-400 transition-colors"></i>
+                            <i class="star fas fa-star text-xl cursor-pointer hover:text-yellow-400 transition-colors"></i>
+                        </div>
+                    </div>
+            
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button class="px-3 py-1.5 bg-slate-700/50 hover:bg-slate-600/50 border border-slate-600 rounded-full text-sm transition-colors">
+                            👍 On Time
+                        </button>
+                        <button class="px-3 py-1.5 bg-slate-700/50 hover:bg-slate-600/50 border border-slate-600 rounded-full text-sm transition-colors">
+                            🚌 Clean Bus
+                        </button>
+                        <button class="px-3 py-1.5 bg-slate-700/50 hover:bg-slate-600/50 border border-slate-600 rounded-full text-sm transition-colors">
+                            👨‍✈ Friendly Driver
+                        </button>
+                        <button class="px-3 py-1.5 bg-slate-700/50 hover:bg-slate-600/50 border border-slate-600 rounded-full text-sm transition-colors">
+                            💺 Comfortable
+                        </button>
+                        <div class="flex gap-3">
+                            <label>
+                            <input
+                                type="email" name="email"
+                                class="flex-grow bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-gray-100 placeholder-gray-500 focus:border-blue-400 focus:ring focus:ring-blue-400/20 focus:ring-opacity-50 transition-all"
+                                placeholder="Enter your email"
+                            />              
+                            </label>
+                            <label>
+                            <input 
+                                type="text" name="message"
+                                class="flex-grow bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-gray-100 placeholder-gray-500 focus:border-blue-400 focus:ring focus:ring-blue-400/20 focus:ring-opacity-50 transition-all"
+                                placeholder="Share your quick feedback..."
+                            />
+                            </label>
+                            <button class="px-6 bg-blue-500 hover:bg-blue-600 rounded-lg font-medium transition-colors flex items-center justify-center">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800/50 backdrop-blur-sm border-t border-slate-700 mt-6">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-bus h-6 w-6 text-blue-400"></i>
+                    <span class="text-gray-400">© 2024 BusRouteGuider. All rights reserved.</span>
+                </div>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
