@@ -15,12 +15,12 @@
   "env": {
     "DB_USER": "postgres",
     "DB_HOST": "localhost",
-    "DB_NAME": "bus_routing",
-    "DB_PASSWORD": "ahamed@2471",
+    "DB_NAME": "Your_Database",
+    "DB_PASSWORD": "Your_Password",
     "DB_PORT": "5432",
-    "SESSION_SECRET": "BusSecret",
-    "GOOGLE_CLIENT_ID": "349657494145-bktcc94b821a0ak2fprlg6i9cj1cjbpq.apps.googleusercontent.com",
-    "GOOGLE_CLIENT_SECRET": "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",
+    "SESSION_SECRET": "Your_Secret",
+    "GOOGLE_CLIENT_ID": "Your_Client_ID",
+    "GOOGLE_CLIENT_SECRET": "Your_Client_Secret",
     "PORT": "3000"
   }
 }
