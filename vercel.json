@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "index.js"
+    }
+  ],
+  "env": {
+    "DB_USER": "postgres",
+    "DB_HOST": "localhost",
+    "DB_NAME": "bus_routing",
+    "DB_PASSWORD": "ahamed@2471",
+    "DB_PORT": "5432",
+    "SESSION_SECRET": "BusSecret",
+    "GOOGLE_CLIENT_ID": "349657494145-bktcc94b821a0ak2fprlg6i9cj1cjbpq.apps.googleusercontent.com",
+    "GOOGLE_CLIENT_SECRET": "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",
+    "PORT": "3000"
+  }
+}
