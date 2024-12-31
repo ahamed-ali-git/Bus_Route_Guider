@@ -12,6 +12,14 @@ A web application for tracking and managing bus routes, schedules, and providing
 - ⭐ User feedback system
 - 🚦 Live bus status updates
 
+## Screenshots
+
+### Home Page
+![Home Page](./screenshots/Screenshot1.png)
+
+### Route Visualization
+![Route Visualization](./screenshots/Screenshot2.png)
+
 ## Prerequisites
  
 Before running the application, make sure you have the following installed:
@@ -54,13 +62,6 @@ PORT=3000
    <script src="https://maps.gomaps.pro/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
    ```
 
-### GoMaps.pro Features Used
-- Custom markers for bus stops
-- Polyline for route visualization
-- InfoWindows for stop information
-- Geolocation for current position
-- Custom styling for map elements
-
 ## Database Setup
 
 1. Create a PostgreSQL database
@@ -95,43 +96,6 @@ nodemon index.js
 
 4. Access the application at `http://localhost:3000`
 
-## Project Structure
-
-```
-BusRouteGuide/
-├── index.js                # Main application file
-├── package.json           # Project dependencies
-├── .env                   # Environment variables
-├── .gitignore            # Git ignore file
-└── views/                # EJS templates
-    ├── home.ejs          # Main dashboard
-    ├── login.ejs         # Login page
-    ├── register.ejs      # Registration page
-    └── logout.ejs        # Logout confirmation
-```
-
-## Dependencies
-
-- express: Web framework
-- pg: PostgreSQL client
-- bcrypt: Password hashing
-- passport: Authentication middleware
-- ejs: Template engine
-- tailwindcss: CSS framework
-- dotenv: Environment variables
-- express-session: Session management
-- nodemailer: Email functionality
-
-## APIs Used
-
-### GoMaps.pro API
-- **Purpose**: Route visualization and location tracking
-- **Features Used**:
-  - Maps JavaScript API for map rendering
-  - Markers API for bus stop locations
-  - Polyline API for route paths
-  - InfoWindow API for stop information
-
 ## Authentication
 
 The application supports two authentication methods:
@@ -152,25 +116,11 @@ The application supports two authentication methods:
 - Quick feedback system with Formspree
 - Star ratings
 
-### Driver Details
-- Contact information
-- Current status
-- Performance ratings
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
-
 - Go Maps.pro API for route visualization
 - Tailwind CSS for styling
 - Font Awesome for icons
