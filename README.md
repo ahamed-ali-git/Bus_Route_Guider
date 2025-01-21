@@ -1,4 +1,4 @@
-# BusRouteGuide 🚌
+# BusRouteGuider 🚌
 
 A web application for tracking and managing bus routes, schedules, and providing real-time feedback. Built with Node.js, Express, PostgreSQL, and Google Maps integration.
 
